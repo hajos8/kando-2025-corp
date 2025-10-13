@@ -1,6 +1,26 @@
-<apex:page >
-  <!-- Begin Default Content REMOVE THIS -->
-  <h1>Congratulations</h1>
-  This is your new Page
-  <!-- End Default Content REMOVE THIS -->
+<apex:page title="Quote Products" standardController="Quote">
+
+  <apex:pageBlock title="Page block">
+    <apex:pageBlockSection title="User info">
+      <apex:outputText label="User:" value="{!$User.FirstName} {!$User.LastName}" />
+      <apex:outputText label="Profile:" value="{!$Profile.Name}"/>
+      <apex:outputText label="Org company:" value="{!$Organization.Name}"/>
+    </apex:pageBlockSection>
+  </apex:pageBlock>
+
+  <apex:pageBlock title="Quote info">
+    <apex:outputText label="Quote name:" value="{!Quote.Name}"/>
+    <apex:outputText label="Opportunity name:" value="{!Quote.Opportunity.Name}"/>
+  </apex:pageBlock>
+
+  <apex:pageBlock title="Quote Products">
+    <ol>
+      <apex:repeat value="{!Quote.QuoteLineItems}" var="qli">
+        <li>
+          <apex:outputText value="{!qli.Product2.Name} - {!qli.Quantity} @ {!qli.UnitPrice} each (Total: {!qli.TotalPrice})"/>
+        </li>
+      </apex:repeat>
+    </ol>
+  </apex:pageBlock>
+
 </apex:page>
