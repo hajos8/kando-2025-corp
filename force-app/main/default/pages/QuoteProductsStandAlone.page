@@ -1,0 +1,25 @@
+<apex:page title="Quote Products" standardController="Quote">
+    <apex:pageBlock>
+        <apex:form>
+            <apex:pageBlockSection>
+                <apex:commandButton action="{!edit}" value="Edit Quote" />
+            </apex:pageBlockSection>
+        </apex:form>
+
+        <apex:pageBlockSection>
+            <apex:dataTable 
+            value="{!quote.QuoteLineItems}"
+            var="qli" 
+            styleClass="myTable"
+            border="1" 
+            cellpadding="5" 
+            cellspacing="0">
+
+            <apex:column headerValue="Product Name">{!qli.Product2.Name}</apex:column>
+            <apex:column headerValue="Quantity">{!qli.Quantity}</apex:column>
+            <apex:column headerValue="Unit Price">{!qli.UnitPrice}</apex:column>
+
+            </apex:dataTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

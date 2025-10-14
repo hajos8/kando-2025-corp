@@ -1,4 +1,5 @@
 <apex:page title="Quote Products" standardController="Quote">
+  <apex:stylesheet value="{!$Resource.QuoteProductsInlineCss.css}" />
 
   <apex:pageBlock title="Page block">
     <apex:pageBlockSection title="User info">
@@ -14,13 +15,32 @@
   </apex:pageBlock>
 
   <apex:pageBlock title="Quote Products">
-    <ol>
-      <apex:repeat value="{!Quote.QuoteLineItems}" var="qli">
-        <li>
-          <apex:outputText value="{!qli.Product2.Name} - {!qli.Quantity} @ {!qli.UnitPrice} each (Total: {!qli.TotalPrice})"/>
-        </li>
-      </apex:repeat>
-    </ol>
+    <table class="myTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Id</th>
+          <th>Product Id</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <apex:variable var="idx" value="1" />
+        <apex:repeat value="{!Quote.QuoteLineItems}" var="qli">
+          <tr>
+            <td>{!idx}</td>
+            <td>{!qli.Id}</td>
+            <td>{!qli.Product2.Id}</td>
+            <td>{!qli.Product2.Name}</td>
+            <td>{!qli.Quantity}</td>
+            <td>{!qli.UnitPrice}</td>
+          </tr>
+          <apex:variable var="idx" value="{!VALUE(idx) + 1}" />
+        </apex:repeat>
+      </tbody>
+    </table>
   </apex:pageBlock>
 
-</apex:page>
+</apex:page><th>Product Name</th>
