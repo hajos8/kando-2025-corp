@@ -10,19 +10,21 @@ showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets
           margin: 0;
           padding: 0;
         }
-        .header {
-          text-align: center;
-          font-size: 18pt;
-          font-weight: bold;
-          margin-bottom: 20px;
+        .page-break-after{
+          page-break-after: always;
         }
-        .content {
-          text-align: justify;
+        .last-page{
+          page-break-after: avoid;
         }
       </style>
     </head>
     <body>
-      Árvíztűrő tükörfúrógép
+      <div class="page-break-after">
+        Árvíztűrő tükörfúrógép
+      </div>
+      <div class="last-page">
+        Teniszütő
+      </div>
     </body>
   </html>
 </apex:page>
