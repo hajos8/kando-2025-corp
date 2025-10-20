@@ -47,9 +47,24 @@ showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets
             @top-center{content: 'First Page Header';}
           }
         }
+
+        .watermark{
+          position: fixed;
+          top: 35%;
+          left: 10%;
+          font-size: 72pt;
+          color: #666;
+          opacity: 0.15;
+          white-space: nowrap;
+          z-index: -1;
+          pointer-events: none;
+          user-select: none;
+        }
       </style>
     </head>
     <body>
+      <div class="watermark" style="{!IF(FALSE,'','display: none;')}">WATERMARK</div>
+
       <div class="page-break-after">
         Árvíztűrő tükörfúrógép
         <p class="formatted-text">The standard Lorem Ipsum passage, used since the 1500s</p>
@@ -73,15 +88,15 @@ showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets
         <table border="1" cellpadding="5" cellspacing="0">
           <thead>
             <tr>
-              <th>Unicode</th>
-              <th class="formatted">Formatted</th>
-              <th class="monospace">Monospace</th>
+              <th width="3cm" class="unicode">Unicode</th>
+              <th width="4cm" class="formatted-text">Formatted</th>
+              <th width="5cm" class="monospace">Monospace</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="unicode">Teniszütő</td>
-              <td class="formatted">a<sup>2</sup><i>+</i>b<sup>2</sup>=<u>c<sup>2</sup></u></td>
+              <td class="formatted-text">a<sup>2</sup><i>+</i>b<sup>2</sup>=<u>c<sup>2</sup></u></td>
               <td class="monospace">UBUL</td>
             </tr>
           </tbody>
