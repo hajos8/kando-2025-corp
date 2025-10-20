@@ -27,6 +27,7 @@ showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets
 
           @page:first{
             @top-center{content: 'First Page Header';}
+          }
         }
       </style>
     </head>
