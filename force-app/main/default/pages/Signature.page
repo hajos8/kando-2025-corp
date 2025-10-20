@@ -1,0 +1,21 @@
+<apex:page id="SignaturePage"
+showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+
+    <div style="width: 100%">
+        <table style="display: inline;">
+            <tr>
+                <td style="width: 10cm; font-size: 10pt">
+                    <p><strong>Seller:</strong></p>
+                    <p>...........................</p>
+                    <p>Head of Sales Operation</p>
+                </td>
+                <td style="width: 10cm; font-size: 10pt">
+                    <p><strong>Buyer:</strong></p>
+                    <p>...........................</p>
+                    <p>Sales Representative</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</apex:page>
