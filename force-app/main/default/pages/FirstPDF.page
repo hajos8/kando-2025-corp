@@ -16,6 +16,18 @@ showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets
         .last-page{
           page-break-after: avoid;
         }
+
+        @page{
+          size: A4;
+          margin: 35mm 1cm 20mm;
+
+          @bottom-right{ 
+            content: 'Page #' counter(page) ' of ' counter(pages);
+          }
+
+          @page:first{
+            @top-center{content: 'First Page Header';}
+        }
       </style>
     </head>
     <body>
