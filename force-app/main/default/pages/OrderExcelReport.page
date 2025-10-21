@@ -1,0 +1,12 @@
+<apex:page id="orderExcelReport" contentType="applications/vnd.ms-excel">
+    <table>
+        <tr>
+            <th>Order Id</th>
+            <th>Order Status</th>
+        </tr>
+        <tr>
+            <td>asd</td>
+            <td>Draft</td>
+        </tr>
+    </table>
+</apex:page>
