@@ -8,4 +8,9 @@
         <target>lightning__Tab</target>
         <target>lightning__AppPage</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="recordId" type="String" description="Record ID" />
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>
