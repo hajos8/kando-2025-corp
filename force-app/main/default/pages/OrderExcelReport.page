@@ -1,0 +1,24 @@
+<!-- https://orgfarm-f98de8abd2-dev-ed--c.develop.vf.force.com/apex/OrderExcelReport/?id=801gK00000P2LZqQAN -->
+<apex:page id="OrderExcelReport" contentType="applications/vnd.ms-excel"
+standardController="Order" extensions="OrderExcelController">
+    <table border="1" style="border-collapse: collapse">
+        <tr>
+            <th>Order Product Id</th>
+            <th>Order Status</th>
+            <th>Order Number</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+        </tr>
+        <apex:repeat value="{!order.OrderItems}" var="oi">
+            <tr>
+                <td><apex:outputField value="{!oi.Id}"/></td>
+                <td><apex:outputField value="{!order.Status}"/></td>
+                <td><apex:outputField value="{!order.OrderNumber}"/></td>
+                <td><apex:outputField value="{!oi.Product2.Name}"/></td>
+                <td><apex:outputField value="{!oi.Quantity}"/></td>
+                <td><apex:outputField value="{!oi.UnitPrice}"/></td>
+            </tr>
+        </apex:repeat>
+    </table>
+</apex:page>
