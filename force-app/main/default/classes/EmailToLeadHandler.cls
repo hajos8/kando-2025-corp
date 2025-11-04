@@ -10,6 +10,22 @@ public with sharing class EmailToLeadHandler implements Messaging.InboundEmailHa
         System.debug('subject' + subject);
         System.debug('body' + body);
 
+        Lead lead = new Lead();
+        lead.LastName = email.fromName;
+        lead.Company = 'Unknown';
+        lead.Email = fromAddress;
+
+        lead.Title = subject;
+        lead.Description = body;
+
+        Database.SaveResult sr = Database.insert(lead, false);
+        if (!sr.isSuccess()) {
+            for (Database.Error err : sr.getErrors()) {
+                System.debug('Error inserting lead: ' + err.getMessage());
+            }
+            result.success = false;
+            return result;
+        }
         result.success = true;
         return result;
     }
