@@ -9,8 +9,12 @@ private class EmailToLeadTest {
         email.fromName = 'Markus Erika';
         email.subject = 'Interested in your physics';
         email.plainTextBody = 'Please send me more physics information.';
+        email.binaryAttachments = new List<Messaging.InboundEmail.BinaryAttachment>();
 
-        // TODO attachments
+        Messaging.InboundEmail.BinaryAttachment bAttachment = new Messaging.InboundEmail.BinaryAttachment();
+        bAttachment.fileName = 'test.txt';
+        bAttachment.body = Blob.valueOf('This is a test attachment.');
+        email.binaryAttachments.add(bAttachment);
 
         Messaging.InboundEnvelope envelope = new Messaging.InboundEnvelope();
 
@@ -19,5 +23,7 @@ private class EmailToLeadTest {
 
         System.assert(result != null, 'Result should not be null');
         System.assert(result.success == true, 'Email processing should be successful');
+
+        result = handler.handleInboundEmail(new Messaging.InboundEmail(), envelope);
     }
 }

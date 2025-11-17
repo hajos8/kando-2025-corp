@@ -7,7 +7,6 @@ public with sharing class EmailToLeadHandler implements Messaging.InboundEmailHa
         Lead[] existingLeads = [SELECT Id FROM Lead WHERE Email = :email.fromAddress LIMIT 1];
         if(existingLeads.isEmpty()){
             result.success = true;
-            return result;
         }
 
         String subject = email.subject;
