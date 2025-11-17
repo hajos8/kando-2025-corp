@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2025-11-04T19:14:47.000Z" hostname="https://orgfarm-f98de8abd2-dev-ed.develop.my.salesforce.com" tests="1" failures="0"  errors="0"  time="0.07">
+        <properties>
+            <property name="outcome" value="Successful"/>
+            <property name="testsRan" value="1"/>
+            <property name="passing" value="1"/>
+            <property name="failing" value="0"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="100%"/>
+            <property name="failRate" value="0%"/>
+            <property name="testStartTime" value="Tue Nov 04 2025 20:14:47"/>
+            <property name="testSetupTimeInMs" value="0"/>
+            <property name="testExecutionTime" value="0.07 s"/>
+            <property name="testTotalTime" value="0.07 s"/>
+            <property name="commandTime" value="0.20 s"/>
+            <property name="hostname" value="https://orgfarm-f98de8abd2-dev-ed.develop.my.salesforce.com"/>
+            <property name="orgId" value="00DgK00000DRaRMUA1"/>
+            <property name="username" value="rabb.andras583@agentforce.com"/>
+            <property name="testRunId" value="707gK00000HOlk8"/>
+            <property name="userId" value="005gK000009Vb2vQAC"/>
+            <property name="coveredLines" value="7"/>
+            <property name="testRunCoverage" value="19%"/>
+            <property name="orgWideCoverage" value="20%"/>
+        </properties>
+        <testcase name="testBehavior" classname="EmailToLeadTest" time="0.07">
+        </testcase>
+    </testsuite>
+</testsuites>
