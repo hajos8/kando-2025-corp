@@ -1,0 +1,29 @@
+=== Test Results
+TEST NAME                     OUTCOME  MESSAGE  RUNTIME (MS)
+────────────────────────────  ───────  ───────  ────────────
+EmailToLeadTest.testBehavior  Pass              67          
+
+
+=== Apex Code Coverage by Class
+CLASSES             PERCENT  UNCOVERED LINES   
+──────────────────  ───────  ──────────────────
+EmailToLeadHandler  19%      13,14,20,21,22,...
+
+
+
+
+=== Test Summary
+NAME                 VALUE                        
+───────────────────  ─────────────────────────────
+Outcome              Passed                       
+Tests Ran            1                            
+Pass Rate            100%                         
+Fail Rate            0%                           
+Skip Rate            0%                           
+Test Run Id          707gK00000HOlk8              
+Test Setup Time      0 ms                         
+Test Execution Time  67 ms                        
+Test Total Time      67 ms                        
+Org Id               00DgK00000DRaRMUA1           
+Username             rabb.andras583@agentforce.com
+Org Wide Coverage    20%                          
