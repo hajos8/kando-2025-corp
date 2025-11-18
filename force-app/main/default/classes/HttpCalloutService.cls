@@ -25,8 +25,7 @@ public with sharing class HttpCalloutService {
         Http http = new Http();
         HttpResponse response;
         
-        int statusCode;
-        String responseHeaders;
+        Integer statusCode;
         String responseBody;
         String errorMessage;
 
@@ -34,7 +33,6 @@ public with sharing class HttpCalloutService {
             response = http.send(request);
 
             statusCode = response.getStatusCode();
-            responseHeaders = response.getAllHeaders().toString();
             responseBody = response.getBody();
         } 
         catch(Exception e){
@@ -43,7 +41,6 @@ public with sharing class HttpCalloutService {
         
         Map<String, Object> result = new Map<String, Object>();
         result.put('statusCode', statusCode);
-        result.put('responseHeaders', responseHeaders);
         result.put('responseBody', responseBody);
         result.put('errorMessage', errorMessage);
 
