@@ -5,6 +5,8 @@ import customConvertLead from '@salesforce/apex/LeadConversionService.customConv
 export default class LeadConverterLwc extends LightningElement {
     GreaterHungary = GreaterHungary;
 
+    isLoading = false;
+
     _recordId;
     @api get recordId() {
         return this._recordId;
@@ -27,6 +29,7 @@ export default class LeadConverterLwc extends LightningElement {
 
     handleConvertLead() {
         if (this.isRecordIdSet()) {
+            this.isLoading = true;
             // Logic to convert lead goes here
             console.log('Converting lead with ID: ' + this.recordId);
             customConvertLead({ leadId: this.recordId })
@@ -35,6 +38,9 @@ export default class LeadConverterLwc extends LightningElement {
                 })
                 .catch(error => {
                     console.error('Error converting lead: ' + error);
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
         } else {
             console.warn('Record ID is not set. Cannot convert lead.');
