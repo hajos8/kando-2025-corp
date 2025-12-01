@@ -1,7 +1,16 @@
 import { LightningElement, api } from 'lwc';
 
 export default class LeadConverterLwc extends LightningElement {
-    @api recordId;
+    _recordId;
+    @api get recordId() {
+        return this._recordId;
+    };
+    async handleRecordIdSet(event) {
+        console.log('Record ID set to: ' + event.detail.value);
+    }
+    set recordId(value) {
+        this._recordId = value;
+    }
 
     connectedCallback() {
         console.log('Record ID: ' + this.recordId);

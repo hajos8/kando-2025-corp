@@ -4,6 +4,9 @@
             <h1>Cigany</h1>
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGYgqKjiGnWmMqHo9pFO7lRj2BWwfWpmne5g&s"
                 alt="Nagy hungary" />
+            <lightning-record-picker label="Lead to convert:" object-api-name="Lead" value={recordId}
+                fields="Name, Company, Email" placeholder="Select a Lead to convert">
+            </lightning-record-picker>
         </div>
     </lightning-card>
 </template>
