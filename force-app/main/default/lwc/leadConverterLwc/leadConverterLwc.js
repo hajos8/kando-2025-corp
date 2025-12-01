@@ -34,7 +34,9 @@ export default class LeadConverterLwc extends LightningElement {
             console.log('Converting lead with ID: ' + this.recordId);
             customConvertLead({ leadId: this.recordId })
                 .then(result => {
-                    console.log('Lead converted successfully: ' + result);
+                    console.log('Lead converted successfully: ' + JSON.stringify(result));
+                    const parsedResult = JSON.parse(result);
+                    location.href = '/' + parsedResult.contactId;
                 })
                 .catch(error => {
                     console.error('Error converting lead: ' + error);
