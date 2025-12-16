@@ -1,0 +1,15 @@
+<template>
+    <lightning-card>
+        <lightning-spinner lwc:if={isLoading} alternative-text="Loading"></lightning-spinner>
+        <div class="slds-p-left_small">
+            <h1>Magyarország</h1>
+            <img src={GreaterHungary} alt="Nagy hungary" />
+            <lightning-record-picker label="Lead to convert:" object-api-name="Lead" value={recordId}
+                fields="Name, Company, Email" placeholder="Select a Lead to convert" display-info={displayInfo}>
+            </lightning-record-picker>
+        </div>
+        <div class="slds-p-around_small" lwc:if={recordId}>
+            <lightning-button variant="brand" label="Convert Lead" onclick={handleConvertLead}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
