@@ -111,6 +111,7 @@ public with sharing class OrdersReportOnAccountController {
                             }
                         }
                     }
+                }
             }
         }
     }
@@ -120,6 +121,14 @@ public with sharing class OrdersReportOnAccountController {
      *
      * @param accountId Account.Id
      */
+    @AuraEnabled
+    public static string methodName(){
+        try {
+            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
     public static void getTableData(String accountId) {
         queryAccount(accountId);
 

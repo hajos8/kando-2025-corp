@@ -2,8 +2,22 @@ import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 
+import getTableData from '@salesforce/apex/OrdersReportOnAccountController.getTableData';
+
 export default class OrdersReportOnAccountPreview extends LightningElement {
-    @api recordId;
+    _recordId;
+
+    @api get recordId() {
+        return this._recordId;
+    }
+    set recordId(value) {
+        this._recordId = value;
+        console.log('recordId set in preview: ' + this._recordId);
+
+        if (this._recordId) {
+            this.fillPreviewTableData();
+        }
+    }
 
     showSpinner = false;
 
