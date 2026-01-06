@@ -7,37 +7,26 @@
       <table class="slds-table slds-table_cell-buffer slds-table_bordered">
         <thead>
           <tr class="slds-line-height_reset">
-            <th>
-              Status
-            </th>
-            <th>
-              Order Number
-            </th>
-            <th>
-              Activated Date
-            </th>
-            <th>
-              Total Amount
-            </th>
-            <th>
-              Product Name
-            </th>
-            <th>
-              Quantity
-            </th>
-            <th>
-              Unit Price
-            </th>
-            <th>
-              List Price
-            </th>
-            <th>
-              Total Price
-            </th>
+            <th>Order Number</th>
+            <th>Status</th>
+            <th>Order Start Date</th>
+            <th>Activated Date</th>
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
           </tr>
         </thead>
         <tbody>
-
+          <template for:each={excelData} for:item="row">
+            <tr key={row}>
+              <template for:each={row} for:item="cell">
+                <td key={cell}>
+                  {cell}
+                </td>
+              </template>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>

@@ -4,18 +4,18 @@ import { CloseActionScreenEvent } from "lightning/actions";
 
 import getTableData from '@salesforce/apex/OrdersReportOnAccountController.getTableData';
 
-export default class OrdersReportOnAccountPreview extends LightningElement {
+export default class OrdersReportOnAccount extends LightningElement {
     _recordId;
-
     @api get recordId() {
         return this._recordId;
     }
+
     set recordId(value) {
         this._recordId = value;
-        console.log('recordId set in preview: ' + this._recordId);
-
-        if (this._recordId) {
-            this.fillPreviewTableData();
+        if (this.recordId) {
+            this.fillPreviewTableData()
+                .then()
+                .catch(console.warn)
         }
     }
 
@@ -24,8 +24,10 @@ export default class OrdersReportOnAccountPreview extends LightningElement {
     cdlId;
     urlToCD;
 
-    fillPreviewTableData() {
-
+    excelData = [[]];
+    async fillPreviewTableData() {
+        this.excelData = await getTableData({ accountId: this.recordId });
+        console.log('Excel Data: ', this.excelData);
     }
 
     handleCreateFile() {
@@ -48,7 +50,10 @@ export default class OrdersReportOnAccountPreview extends LightningElement {
     }
 
     handleShowTable() {
+        // Create url for xls visualforce
 
+        const vfPageUrl = '/apex/OrdersReportOnAccount?id=' + this.recordId;
+        window.open(vfPageUrl, '_blank');
     }
 
     handleCloseWindow() {

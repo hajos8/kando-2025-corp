@@ -13,16 +13,17 @@ public with sharing class OrdersReportOnAccountController {
      * Constructor populates accountId, acc, excelData by page's "id"=Account.Id URL query search parameter
      */
     public OrdersReportOnAccountController() {
-        if(ApexPages.currentPage() != null && ApexPages.currentPage().getParameters().containsKey('id')){
+
+        if (ApexPages.currentPage() != null && ApexPages.currentPage().getParameters().containsKey('id')) {
             accountId = ApexPages.currentPage().getParameters().get('id');
         }
 
-        if(String.isNotBlank(accountId)){
+        if (String.isNotBlank(accountId)) {
             acc = OrdersReportOnAccountController.queryAccount(accountId);
         }
 
-        if(acc != null){
-            populateExcelData(accountId);
+        if (acc != null) {
+            excelData = populateExcelData(accountId);
         }
 
     }
@@ -33,87 +34,88 @@ public with sharing class OrdersReportOnAccountController {
      * @param controller Account controller
      */
     public OrdersReportOnAccountController(ApexPages.StandardController controller) {
-
-        populateExcelData(accountId);
-
+        accountId = controller.getId();
+        if (String.isNotBlank(accountId)) {
+            acc = OrdersReportOnAccountController.queryAccount(accountId);
+        } 
+        
     }
 
     /**
      * Get orders and order items of account
      *
      * @param accountId Account.Id
-     * @return Account with Orders and OrderItems
-     * https://orgfarm-f98de8abd2-dev-ed--c.develop.vf.force.com/apex/OrderExcelReport?id=801gK00000P2LZqQAN
+     * @return queried account
      */
     public static Account queryAccount(String accountId) {
         Account acc;
 
-        if(String.isNotBlank(accountId)){
-            acc = [SELECT 
-            Id, 
-            Name, 
-            (SELECT 
-            Id, 
-            OrderNumber, 
-            Status, 
-            TotalAmount,
-            ActivatedDate,
-            EffectiveDate,
-            (SELECT 
-                Id,
-                Product2Id,
-                Product2.Name,
-                Quantity,
-                UnitPrice,
-                ListPrice,
-                TotalPrice
-                FROM OrderItems)
-            FROM Orders
-            WHERE ActivatedDate >= LAST_WEEK) 
-            FROM Account WHERE Id = :accountId LIMIT 1];
+        if (String.isNotBlank(accountId)) {
+            acc = [
+                SELECT Id 
+                    ,Name 
+                    ,(SELECT Id 
+                        ,OrderNumber
+                        ,Status
+                        ,TotalAmount
+                        ,ActivatedDate
+                        ,EffectiveDate
+                            ,(SELECT Id 
+                                ,Product2Id
+                                ,Product2.Name
+                                ,Product2.Description
+                                ,Quantity
+                                ,UnitPrice
+                                ,ListPrice
+                                ,TotalPrice
+                                FROM OrderItems) 
+                        FROM Orders
+                        WHERE ActivatedDate >= LAST_WEEK
+                    )
+                FROM account
+                WHERE Id = :accountId
+                Limit 1
+            ];
         }
 
         return acc;
+
     }
 
     /**
      * Fill excelData
+     * 
      *
      * @param accountId Account.Id
+     * @return excelData
      */
-    public void populateExcelData(String accountId) {
+    public List<List<String>> populateExcelData(String accountId) {
         Account acc = OrdersReportOnAccountController.queryAccount(accountId);
         excelData = new List<List<String>>();
-
-        if(acc != null && acc.Orders != null && !acc.Orders.isEmpty()){
-            // Header row
-            List<String> headerRow = new List<String>{'Order Number', 'Order Status', 'Activated Date', 'Total Amount', 'Product Name', 'Quantity', 'Unit Price', 'List Price', 'Total Price'};
-            excelData.add(headerRow);
-
-            // Data rows
-            for(Order ord : acc.Orders){
-                if(ord.OrderItems != null && !ord.OrderItems.isEmpty()){
-                    for(Order order : acc.Orders){
-                        if(order.OrderItems != null && !order.OrderItems.isEmpty()){
-                            for(OrderItem oi : order.OrderItems){
-                                if(oi.Quantity > 0){
-                                    excelData.add(new List<String>{
-                                        order.OrderNumber,
-                                        order.Status,
-                                        String.valueOf(order.EffectiveDate),
-                                        String.valueOf(order.ActivatedDate),
-                                        oi.Product2.Name,
-                                        oi.Product2.description,
-                                        String.valueOf(oi.Quantity),
-                                        String.valueOf(oi.UnitPrice)
-                                    });
-                                }
-                            }
+        if (acc != null && acc.Orders != null && !acc.Orders.isEmpty()) {
+            for (Order order : acc.Orders) {
+                if (order.OrderItems != null && !order.OrderItems.isEmpty()) {
+                    for (OrderItem io : order.OrderItems) {
+                        if (io.Quantity > 0) {
+                            excelData.add(new List<String>{
+                                order.OrderNumber,
+                                order.Status,
+                                String.valueOf(order.EffectiveDate),
+                                String.valueOf(order.ActivatedDate),
+                                io.Product2.Name,
+                                String.isNotBlank(io.Product2.Description ) ? io.Product2.Description : '',
+                                String.valueOf(io.Quantity),
+                                String.valueOf(io.UnitPrice)
+                            });
                         }
+                        
                     }
                 }
             }
         }
+
+        System.debug('excelData: ' + excelData);
+        return excelData;
     }
 
     /**
@@ -122,19 +124,12 @@ public with sharing class OrdersReportOnAccountController {
      * @param accountId Account.Id
      */
     @AuraEnabled
-    public static string methodName(){
-        try {
-            
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
-    public static void getTableData(String accountId) {
+    public static List<List<String>> getTableData(String accountId) {
         queryAccount(accountId);
 
         OrdersReportOnAccountController instance = new OrdersReportOnAccountController();
         instance.accountId = accountId;
-        instance.populateExcelData(accountId);
+        return instance.populateExcelData(accountId);
 
 
     }
