@@ -139,13 +139,31 @@ public with sharing class OrdersReportOnAccountController {
      *
      * @param accountId Account.Id
      */
-    public static void createContentVersion(String accountId) {
+    @AuraEnabled
+    public static String createContentVersion(String accountId) {
+
+        PageReference pageRef = Page.OrdersReportOnAccount;
+        pageRef.getParameters().put('id', accountId);
+        Blob excelBlob = pageRef.getContent();
 
         ContentVersion cv = new ContentVersion();
+        cv.Title = 'todo_filename';
+        cv.PathOnClient = cv.Title + '.xlsx';
+        cv.VersionData = excelBlob;
+        cv.IsMajorVersion = true;
+        insert cv;
+
+        // query ContentDocument
+
+        Id conDocId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :cv.Id].ContentDocumentId;
 
         ContentDocumentLink cdl = new ContentDocumentLink();
+        cdl.ContentDocumentId = conDocId;
+        cdl.LinkedEntityId = accountId;
+        cdl.ShareType = 'V'; // V = Viewer, C = Collaborator
+        cdl.Visibility = 'AllUsers';
+        insert cdl;
 
-
-
+        return conDocId;
     }
 }
