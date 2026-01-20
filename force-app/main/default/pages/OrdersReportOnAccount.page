@@ -1,0 +1,23 @@
+<apex:page id="OrdersReportOnAccount" standardController="Account" extensions="OrdersReportOnAccountController" contentType="application/vnd.ms-excel">
+  <table border="1" style="border-collapse: collapse;">
+    <tr>
+      <th>Order Number</th>
+      <th>Order Status</th>
+      <th>Order Start Date</th>
+      <th>Order Activated Date</th>
+      <th>Product Name</th>
+      <th>Product Description</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+    </tr>
+    <apex:repeat value="{!excelData}" var="row">
+      <tr>
+        <apex:repeat value="{!row}" var="cell">
+          <td>
+            {!cell}
+          </td>
+        </apex:repeat>
+      </tr>
+    </apex:repeat>
+  </table>
+</apex:page>
